@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deseal Adventures - Explore the Cosmos</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <header>
+        <div class="logo">DESEAL <span>ADVENTURES</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#about">Our Fleet</a></li>
+                <li><a href="#contact" class="btn-nav">Book Orbit</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>THE UNIVERSE AWAITS</h1>
+            <p>Leave the atmosphere behind. Journey into the deep blue cosmic ocean with Deseal Adventures.</p>
+            <a href="#destinations" class="btn-primary">Explore Destinations</a>
+        </div>
+    </section>
+
+    <section id="destinations" class="destinations">
+        <h2>Choose Your Orbit</h2>
+        <p class="subtitle">Select your next deep-space destination</p>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-image nebula"></div>
+                <h3>Neon Nebulae</h3>
+                <p>Cruise through vibrant clouds of glowing blue gas and newborn stars.</p>
+                <a href="#" class="btn-secondary">Learn More</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image rings"></div>
+                <h3>Ice Ring Safaris</h3>
+                <p>Navigate the majestic, frozen rings of distant gas giants.</p>
+                <a href="#" class="btn-secondary">Learn More</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image deep-space"></div>
+                <h3>Deep Void Horizons</h3>
+                <p>Travel to the edge of known space where the stars fade into the beautiful dark.</p>
+                <a href="#" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Ready for Launch?</h2>
+            <p>Join the next generation of cosmic pioneers.</p>
+            <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Welcome aboard the Deseal Crew!');">
+                <input type="email" placeholder="Enter your interstellar email" required>
+                <button type="submit">Initialize Ignition</button>
+            </form>
+            <p class="copyright">&copy; 2026 Deseal Adventures. All rights reserved into the infinity.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
