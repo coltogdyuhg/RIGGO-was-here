@@ -1,76 +1,1430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deseal Adventures - Explore the Cosmos</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deseal Adventures - Deep Space Exploration</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons for Sci-Fi Elements -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts for Futuristic Vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+    .font-rajdhani {
+      font-family: 'Rajdhani', sans-serif;
+    }
+    /* Custom glow effects matching the stars blue/black/white theme */
+    .glow-blue {
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    }
+    .glow-blue-strong {
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+    }
+    .text-glow {
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    }
+    .text-glow-white {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    /* Glassmorphism containers */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+    .glass-panel-active {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    /* Starfield Background Canvas */
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+    /* Animated orbit lines */
+    @keyframes orbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animated-orbit {
+      animation: orbit 45s linear infinite;
+    }
+    .animated-orbit-fast {
+      animation: orbit 20s linear infinite;
+    }
+    /* Glowing radar pulse */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(0.95); opacity: 0.5; }
+    }
+    .radar-pulse {
+      animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col relative select-none">
 
-    <div class="stars"></div>
-    <div class="twinkling"></div>
+  <!-- Interactive Starfield Canvas Background -->
+  <canvas id="starfield"></canvas>
 
-    <header>
-        <div class="logo">DESEAL <span>ADVENTURES</span></div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#destinations">Destinations</a></li>
-                <li><a href="#about">Our Fleet</a></li>
-                <li><a href="#contact" class="btn-nav">Book Orbit</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>THE UNIVERSE AWAITS</h1>
-            <p>Leave the atmosphere behind. Journey into the deep blue cosmic ocean with Deseal Adventures.</p>
-            <a href="#destinations" class="btn-primary">Explore Destinations</a>
+  <!-- Global Header Navigation -->
+  <header class="sticky top-0 z-50 w-full glass-panel border-b border-sky-950/40 px-4 py-3 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="relative flex items-center justify-center">
+          <div class="w-10 h-10 rounded-full border-2 border-sky-400 flex items-center justify-center glow-blue text-sky-400">
+            <i class="fa-solid fa-shuttle-space text-lg transform -rotate-45"></i>
+          </div>
+          <div class="absolute -inset-0.5 rounded-full border border-sky-300/30 radar-pulse"></div>
         </div>
-    </section>
+        <div>
+          <h1 class="font-orbitron font-extrabold text-xl tracking-wider text-white text-glow">
+            DESEAL <span class="text-sky-400">ADVENTURES</span>
+          </h1>
+          <p class="text-[10px] font-rajdhani tracking-widest text-sky-300/70 uppercase">Deep Space Sector-9 Exploratory Suite</p>
+        </div>
+      </div>
 
-    <section id="destinations" class="destinations">
-        <h2>Choose Your Orbit</h2>
-        <p class="subtitle">Select your next deep-space destination</p>
+      <!-- Live Dashboard Status Indicators -->
+      <div class="hidden lg:flex items-center gap-6 font-rajdhani text-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-gray-400">Telemetry:</span>
+          <span class="text-white font-semibold">ONLINE</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-gray-400">AI Core:</span>
+          <span class="text-sky-400 font-semibold text-glow">READY</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-gray-400">Engine Output:</span>
+          <span id="engine-pct" class="text-white font-semibold">98.4%</span>
+        </div>
+      </div>
+
+      <!-- Interactive Tab Selectors -->
+      <nav class="flex items-center gap-1 glass-panel px-1.5 py-1 rounded-full text-sm font-rajdhani">
+        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-4 py-1.5 rounded-full text-white bg-sky-600 font-bold transition-all duration-300">
+          <i class="fa-solid fa-chart-line mr-1.5"></i>Dashboard
+        </button>
+        <button onclick="switchTab('starmap')" id="tab-starmap" class="tab-btn px-4 py-1.5 rounded-full text-gray-400 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-map-marked-alt mr-1.5"></i>Sector Map
+        </button>
+        <button onclick="switchTab('ai-navigator')" id="tab-ai-navigator" class="tab-btn px-4 py-1.5 rounded-full text-gray-400 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-brain mr-1.5"></i>AI Navigator
+        </button>
+        <button onclick="switchTab('visualizer')" id="tab-visualizer" class="tab-btn px-4 py-1.5 rounded-full text-gray-400 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>Visualizer
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Interactive Custom Notification / Feedback Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 transition-all duration-300 max-w-sm glass-panel glow-blue px-4 py-3 rounded-lg flex items-start gap-3 text-sm pointer-events-none">
+    <div class="text-sky-400 text-lg mt-0.5" id="toast-icon">
+      <i class="fa-solid fa-circle-info"></i>
+    </div>
+    <div>
+      <h4 class="font-bold text-white font-orbitron text-xs tracking-wider" id="toast-title">TRANSMISSION</h4>
+      <p class="text-gray-300 mt-1" id="toast-message">Deseal connection verified.</p>
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col gap-6">
+
+    <!-- TAB 1: MISSION CONTROL DASHBOARD -->
+    <section id="content-dashboard" class="tab-content flex flex-col lg:grid lg:grid-cols-3 gap-6">
+      
+      <!-- Left Column: Ship Captain & Core Control Panel -->
+      <div class="lg:col-span-2 flex flex-col gap-6">
         
-        <div class="grid">
-            <div class="card">
-                <div class="card-image nebula"></div>
-                <h3>Neon Nebulae</h3>
-                <p>Cruise through vibrant clouds of glowing blue gas and newborn stars.</p>
-                <a href="#" class="btn-secondary">Learn More</a>
-            </div>
+        <!-- Welcome banner -->
+        <div class="glass-panel p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+          <!-- Abstract neon star overlay -->
+          <div class="absolute right-0 top-0 w-80 h-80 bg-sky-900/10 rounded-full blur-3xl -z-10"></div>
+          <div class="absolute right-12 bottom-4 opacity-10 text-9xl text-white">
+            <i class="fa-solid fa-space-shuttle"></i>
+          </div>
+          
+          <div>
+            <span class="px-2.5 py-1 text-xs rounded-md bg-sky-500/10 text-sky-300 border border-sky-400/20 font-rajdhani uppercase tracking-widest font-bold">Flagship Command</span>
+            <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-white mt-4 tracking-tight leading-none text-glow-white">
+              Welcome to the Deep Void
+            </h2>
+            <p class="text-gray-400 mt-2 max-w-md text-sm md:text-base">
+              You are navigating the outer rim coordinates of <span class="text-sky-300 font-bold font-orbitron">Sector Deseal-9</span>. Chart constellations, synthesis uncharted systems, and communicate with the on-board navigational consciousness.
+            </p>
+          </div>
 
-            <div class="card">
-                <div class="card-image rings"></div>
-                <h3>Ice Ring Safaris</h3>
-                <p>Navigate the majestic, frozen rings of distant gas giants.</p>
-                <a href="#" class="btn-secondary">Learn More</a>
+          <!-- Live coordinates ticker -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 border-t border-sky-950/60 pt-4">
+            <div>
+              <p class="text-[10px] text-gray-500 uppercase tracking-widest font-rajdhani">Galactic Lat</p>
+              <p class="font-orbitron text-sm text-sky-300 font-semibold" id="val-lat">142.088° N</p>
             </div>
-
-            <div class="card">
-                <div class="card-image deep-space"></div>
-                <h3>Deep Void Horizons</h3>
-                <p>Travel to the edge of known space where the stars fade into the beautiful dark.</p>
-                <a href="#" class="btn-secondary">Learn More</a>
+            <div>
+              <p class="text-[10px] text-gray-500 uppercase tracking-widest font-rajdhani">Galactic Long</p>
+              <p class="font-orbitron text-sm text-sky-300 font-semibold" id="val-long">44.119° E</p>
             </div>
+            <div>
+              <p class="text-[10px] text-gray-500 uppercase tracking-widest font-rajdhani">Solar Velocity</p>
+              <p class="font-orbitron text-sm text-sky-300 font-semibold" id="val-velocity">1,480 km/s</p>
+            </div>
+            <div>
+              <p class="text-[10px] text-gray-500 uppercase tracking-widest font-rajdhani">Stellar Dist</p>
+              <p class="font-orbitron text-sm text-white font-semibold">4.2 Light Years</p>
+            </div>
+          </div>
         </div>
+
+        <!-- Captain's Logs Audio Broadcast System (Uses API) -->
+        <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 border border-sky-500/20">
+                <i class="fa-solid fa-volume-high"></i>
+              </div>
+              <div>
+                <h3 class="font-orbitron font-bold text-white text-base tracking-wide">Galactic Log Broadcast</h3>
+                <p class="text-xs text-gray-400">Synthesize deep space ambient and spoken expedition updates</p>
+              </div>
+            </div>
+            <div class="text-xs font-rajdhani text-gray-500 bg-sky-950/40 px-2 py-1 rounded">
+              Voice: <span class="text-sky-400 font-bold">FENRIR</span>
+            </div>
+          </div>
+
+          <!-- Audio Log Options -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+            
+            <!-- Generate a customized audio update from pre-saved logs -->
+            <button onclick="playCaptainsLog('expedition')" class="group flex items-center justify-between p-4 rounded-xl bg-sky-950/20 hover:bg-sky-900/30 border border-sky-900/40 hover:border-sky-500/40 transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-sky-950 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+                  <i class="fa-solid fa-tower-broadcast"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Daily Comm: Flight Path</h4>
+                  <p class="text-[10px] text-gray-400">Sector anomalies & status report</p>
+                </div>
+              </div>
+              <div class="text-sky-400 transition-transform group-hover:translate-x-1">
+                <i class="fa-solid fa-play"></i>
+              </div>
+            </button>
+
+            <!-- Play customizable nebula report -->
+            <button onclick="playCaptainsLog('nebula')" class="group flex items-center justify-between p-4 rounded-xl bg-sky-950/20 hover:bg-sky-900/30 border border-sky-900/40 hover:border-sky-500/40 transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-sky-950 flex items-center justify-center text-sky-300 group-hover:scale-110 transition-transform">
+                  <i class="fa-solid fa-atom"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Sensor Log: Dark Matter</h4>
+                  <p class="text-[10px] text-gray-400">Energy readings and scans</p>
+                </div>
+              </div>
+              <div class="text-sky-300 transition-transform group-hover:translate-x-1">
+                <i class="fa-solid fa-play"></i>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- Capt's Log Interactive Playback Console -->
+          <div id="audio-console" class="hidden mt-2 p-4 rounded-xl bg-slate-950/90 border border-sky-800/50 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></div>
+                <span class="text-xs font-orbitron text-sky-400 uppercase tracking-widest font-semibold" id="audio-title">RECEIVING AUDIO TRANSMISSION...</span>
+              </div>
+              <button onclick="stopAudio()" class="text-xs text-rose-400 hover:text-rose-300 font-rajdhani uppercase tracking-widest font-semibold">
+                <i class="fa-solid fa-stop mr-1"></i> Abort
+              </button>
+            </div>
+            <!-- Audio Waves Canvas / Waveform Animation -->
+            <div class="flex items-end gap-1.5 h-10 px-4 justify-center" id="waveform-animation">
+              <div class="w-1.5 bg-sky-400/80 rounded-t h-3 animate-pulse" style="animation-delay: 0.1s"></div>
+              <div class="w-1.5 bg-sky-400 rounded-t h-8 animate-pulse" style="animation-delay: 0.3s"></div>
+              <div class="w-1.5 bg-sky-300/80 rounded-t h-5 animate-pulse" style="animation-delay: 0.5s"></div>
+              <div class="w-1.5 bg-white/80 rounded-t h-6 animate-pulse" style="animation-delay: 0.2s"></div>
+              <div class="w-1.5 bg-sky-500 rounded-t h-9 animate-pulse" style="animation-delay: 0.4s"></div>
+              <div class="w-1.5 bg-sky-200/80 rounded-t h-4 animate-pulse" style="animation-delay: 0.7s"></div>
+              <div class="w-1.5 bg-sky-400/90 rounded-t h-7 animate-pulse" style="animation-delay: 0.15s"></div>
+              <div class="w-1.5 bg-sky-300 rounded-t h-2 animate-pulse" style="animation-delay: 0.6s"></div>
+            </div>
+            <!-- Text Transcript of Transmission -->
+            <p id="audio-transcript" class="text-xs text-gray-400 italic text-center bg-sky-950/30 p-2.5 rounded border border-sky-900/20 max-h-20 overflow-y-auto">
+              Please wait... Converting cosmic audio wave sequences...
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Solar System / Planet Selector Quickview -->
+      <div class="flex flex-col gap-6">
+        
+        <!-- Live System Diagnostics -->
+        <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+          <div class="flex justify-between items-center border-b border-sky-950 pb-3">
+            <h3 class="font-orbitron font-bold text-white text-sm uppercase tracking-wider">Auxiliary Power Nodes</h3>
+            <span class="text-xs text-sky-400 font-rajdhani font-bold">TOTAL: 100%</span>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div>
+              <div class="flex justify-between text-xs font-rajdhani mb-1 text-gray-400">
+                <span>Warp Drive Core</span>
+                <span class="text-sky-300">92% Charged</span>
+              </div>
+              <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-sky-400 h-full rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-rajdhani mb-1 text-gray-400">
+                <span>Shield Generators</span>
+                <span class="text-sky-300">100% Charged</span>
+              </div>
+              <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-sky-300 h-full rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-rajdhani mb-1 text-gray-400">
+                <span>Life Support Array</span>
+                <span class="text-white">Optimal (99%)</span>
+              </div>
+              <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-white h-full rounded-full" style="width: 99%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Planet Discovery Card -->
+        <div class="glass-panel rounded-2xl overflow-hidden group flex flex-col">
+          <!-- Beautiful celestial visual representation using SVG -->
+          <div class="relative h-44 bg-gradient-to-b from-sky-950/50 to-slate-950/90 flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-900/30 via-transparent to-transparent"></div>
+            
+            <!-- Planet SVG Graphic -->
+            <div class="relative w-28 h-28 flex items-center justify-center">
+              <svg viewBox="0 0 100 100" class="w-full h-full animated-orbit-fast absolute opacity-40">
+                <ellipse cx="50" cy="50" rx="45" ry="12" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="6,4"></ellipse>
+              </svg>
+              <!-- Planet body with space theme coloring -->
+              <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-950 via-sky-900 to-sky-400 border border-sky-300/40 relative overflow-hidden flex items-center justify-center glow-blue-strong">
+                <!-- Planet texture pattern effect -->
+                <div class="absolute inset-0 opacity-20 bg-repeat bg-center" style="background-image: radial-gradient(#fff 15%, transparent 16%); background-size: 10px 10px;"></div>
+                <!-- Atmosphere sheen -->
+                <div class="absolute -inset-0.5 rounded-full bg-gradient-to-b from-transparent to-slate-950/70"></div>
+              </div>
+            </div>
+
+            <div class="absolute bottom-3 left-3 flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-black/60 border border-sky-500/20 text-[9px] font-orbitron font-bold tracking-widest text-sky-400">TARGET ACQUIRED</span>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="p-5 flex flex-col gap-3">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-orbitron font-bold text-lg text-white">Desealon-A Prime</h4>
+                <p class="text-xs text-sky-400 font-rajdhani tracking-wider">Gas Giant • Sapphire Ring System</p>
+              </div>
+              <button onclick="switchTab('starmap')" class="w-8 h-8 rounded-lg bg-sky-950 hover:bg-sky-900/80 border border-sky-800/40 flex items-center justify-center text-sky-300 transition-colors">
+                <i class="fa-solid fa-map"></i>
+              </button>
+            </div>
+            <p class="text-xs text-gray-400 leading-relaxed">
+              Discovered in the second epoch of Deseal expeditions, this rich hydrogen giant radiates highly ionized aura storms that are ideal for visual collection and study.
+            </p>
+            <div class="grid grid-cols-2 gap-3 mt-1 text-center font-rajdhani text-xs">
+              <div class="bg-sky-950/30 p-2 rounded border border-sky-900/30">
+                <p class="text-gray-500 uppercase tracking-widest">Gravity</p>
+                <p class="text-white font-bold font-orbitron mt-0.5">2.4g</p>
+              </div>
+              <div class="bg-sky-950/30 p-2 rounded border border-sky-900/30">
+                <p class="text-gray-500 uppercase tracking-widest">Scan Status</p>
+                <p class="text-sky-300 font-bold font-orbitron mt-0.5">99.1%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <h2>Ready for Launch?</h2>
-            <p>Join the next generation of cosmic pioneers.</p>
-            <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Welcome aboard the Deseal Crew!');">
-                <input type="email" placeholder="Enter your interstellar email" required>
-                <button type="submit">Initialize Ignition</button>
-            </form>
-            <p class="copyright">&copy; 2026 Deseal Adventures. All rights reserved into the infinity.</p>
+    <!-- TAB 2: INTERACTIVE STAR MAP -->
+    <section id="content-starmap" class="tab-content hidden flex flex-col lg:grid lg:grid-cols-3 gap-6">
+      
+      <!-- Interactive Map Console Canvas -->
+      <div class="lg:col-span-2 glass-panel p-4 rounded-2xl flex flex-col gap-4 min-h-[500px]">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-b border-sky-950 pb-3">
+          <div>
+            <h3 class="font-orbitron font-bold text-white text-lg tracking-wide flex items-center gap-2">
+              <i class="fa-solid fa-globe text-sky-400"></i> Deseal Cosmic Quadrant
+            </h3>
+            <p class="text-xs text-gray-400">Select any planet coordinate in this stellar cluster to load detailed sensor metrics</p>
+          </div>
+          <div class="flex items-center gap-2 font-rajdhani text-xs">
+            <button onclick="resetMap()" class="bg-sky-950 hover:bg-sky-900/80 px-3 py-1.5 rounded text-sky-300 border border-sky-900/40 transition-colors">
+              <i class="fa-solid fa-arrows-rotate mr-1"></i> Reset View
+            </button>
+            <span class="text-gray-500">|</span>
+            <span class="text-gray-400">Total Systems: <span class="text-sky-400 font-bold">5 Active</span></span>
+          </div>
         </div>
-    </footer>
 
+        <!-- HTML5 Star Map Grid Canvas Wrapper -->
+        <div class="relative flex-grow min-h-[380px] bg-slate-950/90 rounded-xl border border-sky-950/60 overflow-hidden cursor-crosshair">
+          <canvas id="starmap-canvas" class="w-full h-full absolute inset-0"></canvas>
+          
+          <!-- Instructions overlay -->
+          <div class="absolute bottom-3 left-3 pointer-events-none bg-black/75 px-3 py-1.5 rounded-lg border border-sky-500/20 text-[10px] text-gray-300 font-rajdhani">
+            <i class="fa-solid fa-fingerprint text-sky-400 mr-1 animate-pulse"></i> TAP/CLICK TO SCAN & FOCUS ON PLANETS
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Details Panel / Sector Control Info -->
+      <div class="flex flex-col gap-6">
+        
+        <!-- Live Selected Planet Data Card -->
+        <div id="planet-info-card" class="glass-panel p-6 rounded-2xl flex flex-col gap-5">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full border border-sky-400/40 flex items-center justify-center" id="planet-symbol-container">
+              <!-- Dynamically populated or default icon -->
+              <i class="fa-solid fa-ring text-sky-400 text-lg"></i>
+            </div>
+            <div>
+              <span class="text-[10px] text-sky-400 font-orbitron font-bold tracking-widest uppercase">Telemetry Stream</span>
+              <h4 class="font-orbitron font-bold text-xl text-white mt-0.5" id="p-name">Deseal Sector Alpha</h4>
+            </div>
+          </div>
+
+          <p class="text-xs text-gray-400 leading-relaxed" id="p-desc">
+            This sector is rich in heavy ores and solar currents. Click on any orbiting stellar body in the canvas grid to lock sensors and request deep scanning analysis.
+          </p>
+
+          <div class="border-t border-sky-950/60 pt-4 flex flex-col gap-3">
+            <div class="flex justify-between text-xs font-rajdhani">
+              <span class="text-gray-500 uppercase tracking-widest">Radial Coordinates</span>
+              <span class="text-white font-bold" id="p-coords">X: 152.00 | Y: 240.50</span>
+            </div>
+            <div class="flex justify-between text-xs font-rajdhani">
+              <span class="text-gray-500 uppercase tracking-widest">Primary Composition</span>
+              <span class="text-sky-300 font-bold" id="p-comp">Hydrogen, Silicon</span>
+            </div>
+            <div class="flex justify-between text-xs font-rajdhani">
+              <span class="text-gray-500 uppercase tracking-widest">Surface Temp</span>
+              <span class="text-white font-bold" id="p-temp">-122°C</span>
+            </div>
+            <div class="flex justify-between text-xs font-rajdhani">
+              <span class="text-gray-500 uppercase tracking-widest">Habitablity</span>
+              <span class="text-amber-500 font-bold uppercase" id="p-hab">Extremely Hostile</span>
+            </div>
+          </div>
+
+          <div class="mt-2">
+            <button onclick="askAIAboutPlanet()" class="w-full bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white font-bold font-orbitron py-2.5 rounded-xl transition-all duration-300 text-sm glow-blue tracking-wider">
+              <i class="fa-solid fa-microchip-ai mr-2"></i> CONSULT NAVIGATOR AI
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom Waypoint Creator panel -->
+        <div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+          <h3 class="font-orbitron font-bold text-sm text-white uppercase tracking-wider">Deploy Space Probe</h3>
+          <p class="text-xs text-gray-400">Launch a virtual probe to customize coordinates on your cosmic chart.</p>
+          
+          <div class="flex flex-col gap-3">
+            <div>
+              <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-rajdhani">Probe Designation Name</label>
+              <input type="text" id="probe-name" placeholder="Des-Probe-X" class="w-full mt-1 bg-slate-950 border border-sky-950 hover:border-sky-800/80 focus:border-sky-500/80 focus:outline-none rounded-lg px-3 py-2 text-sm text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-rajdhani">Sector Offset X</label>
+                <input type="number" id="probe-x" min="50" max="600" value="300" class="w-full mt-1 bg-slate-950 border border-sky-950 rounded-lg px-3 py-2 text-sm text-white">
+              </div>
+              <div>
+                <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-rajdhani">Sector Offset Y</label>
+                <input type="number" id="probe-y" min="50" max="400" value="200" class="w-full mt-1 bg-slate-950 border border-sky-950 rounded-lg px-3 py-2 text-sm text-white">
+              </div>
+            </div>
+            <button onclick="createCustomProbe()" class="w-full mt-2 bg-slate-900 hover:bg-sky-950/40 text-sky-400 border border-sky-800/40 font-semibold font-rajdhani py-2 rounded-lg transition-colors text-xs uppercase tracking-wider">
+              <i class="fa-solid fa-rocket mr-1.5"></i> Launch Probe
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 3: AI NAVIGATOR CHAT -->
+    <section id="content-ai-navigator" class="tab-content hidden flex flex-col lg:grid lg:grid-cols-4 gap-6">
+      
+      <!-- Side Navigation / Premade AI Prompt Shortcuts -->
+      <div class="lg:col-span-1 flex flex-col gap-4">
+        <div class="glass-panel p-5 rounded-2xl flex flex-col gap-4">
+          <div class="flex items-center gap-2 border-b border-sky-950 pb-3">
+            <div class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></div>
+            <h4 class="font-orbitron font-bold text-xs uppercase tracking-wider text-white">Preset Scan Inquiries</h4>
+          </div>
+
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Quickly load sensor templates to ask the Deseal Flight AI about cosmic physics anomalies.
+          </p>
+
+          <div class="flex flex-col gap-2 mt-2">
+            <button onclick="loadAIQuery('Explain the strange dark energy pockets discovered near Sector Deseal-9.')" class="w-full text-left p-3 rounded-xl bg-sky-950/20 hover:bg-sky-900/30 border border-sky-900/30 hover:border-sky-500/30 transition-all text-xs font-rajdhani text-gray-300">
+              <i class="fa-solid fa-radiation mr-1.5 text-sky-400"></i> Sector-9 Energy Pockets
+            </button>
+            <button onclick="loadAIQuery('How do gas giant atmospheres with sapphire ring rings like Desealon-A behave under intense ionization?')" class="w-full text-left p-3 rounded-xl bg-sky-950/20 hover:bg-sky-900/30 border border-sky-900/30 hover:border-sky-500/30 transition-all text-xs font-rajdhani text-gray-300">
+              <i class="fa-solid fa-ring mr-1.5 text-sky-400"></i> Sapphire Ring Physics
+            </button>
+            <button onclick="loadAIQuery('Calculate a safe flight trajectory through a dense asteroid belt using hyper-drive coordinates.')" class="w-full text-left p-3 rounded-xl bg-sky-950/20 hover:bg-sky-900/30 border border-sky-900/30 hover:border-sky-500/30 transition-all text-xs font-rajdhani text-gray-300">
+              <i class="fa-solid fa-location-crosshairs mr-1.5 text-sky-400"></i> Asteroid Avoidance Math
+            </button>
+          </div>
+        </div>
+
+        <!-- Information disclaimer -->
+        <div class="glass-panel p-4 rounded-xl text-center text-xs text-gray-500">
+          <i class="fa-solid fa-shield-halved text-sky-400/40 text-lg mb-2 block"></i>
+          Powered by Gemini 2.5 Intelligence. Real-time telemetry translation enabled.
+        </div>
+      </div>
+
+      <!-- Main Chat Console Window -->
+      <div class="lg:col-span-3 glass-panel rounded-2xl flex flex-col h-[520px] overflow-hidden">
+        
+        <!-- Chat Header -->
+        <div class="p-4 bg-slate-950/80 border-b border-sky-950 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-400 border border-sky-500/20">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+              <h3 class="font-orbitron font-bold text-sm text-white">Deseal Nav-Core AI</h3>
+              <p class="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold font-rajdhani">Quantum connection active</p>
+            </div>
+          </div>
+          <!-- Clear Chat -->
+          <button onclick="clearChat()" class="text-xs text-gray-500 hover:text-white transition-colors">
+            <i class="fa-solid fa-trash-can mr-1"></i> Clear Log
+          </button>
+        </div>
+
+        <!-- Scrollable Messages Area -->
+        <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-4 bg-slate-950/40">
+          
+          <!-- System Welcome Message -->
+          <div class="flex gap-3 max-w-[85%] self-start">
+            <div class="w-8 h-8 rounded-full bg-sky-950 border border-sky-800 flex items-center justify-center text-sky-400 shrink-0">
+              <i class="fa-solid fa-robot text-xs"></i>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-sky-950/35 border border-sky-900/30 text-xs md:text-sm text-gray-200">
+              <p class="font-bold text-sky-400 font-orbitron mb-1 text-[10px] tracking-wider">NAV-CORE INTEL</p>
+              Salutations, pilot. I am the Deseal Navigational Consciousness, calibrated to assist your sector mapping. Ask me anything regarding planetary environments, galactic navigation trajectories, or local cosmic phenomenon.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Loading Ticker Indicator -->
+        <div id="ai-loading" class="hidden px-4 py-2 bg-slate-950/70 border-t border-sky-950 flex items-center gap-2 text-xs text-sky-400 font-rajdhani">
+          <i class="fa-solid fa-circle-notch animate-spin"></i>
+          <span>Computing flight mathematics and querying deep star database...</span>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form onsubmit="sendMessage(event)" class="p-3 bg-slate-950 border-t border-sky-950 flex gap-2">
+          <input type="text" id="ai-input" placeholder="Query flight core (e.g. 'How does a wormhole form?')..." class="flex-grow bg-slate-900 border border-sky-950 hover:border-sky-800/60 focus:border-sky-500/80 focus:outline-none rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500">
+          <button type="submit" class="bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white font-bold font-orbitron px-5 rounded-xl transition-all duration-300 text-sm flex items-center gap-1.5 glow-blue">
+            <span>SEND</span><i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 4: COSMOS VISUALIZER (IMAGE GENERATOR) -->
+    <section id="content-visualizer" class="tab-content hidden flex flex-col lg:grid lg:grid-cols-3 gap-6">
+      
+      <!-- Generator Parameters Panel -->
+      <div class="lg:col-span-1 glass-panel p-6 rounded-2xl flex flex-col gap-4">
+        <div>
+          <h3 class="font-orbitron font-bold text-white text-lg tracking-wide flex items-center gap-2">
+            <i class="fa-solid fa-palette text-sky-400"></i> Vista Synthesizer
+          </h3>
+          <p class="text-xs text-gray-400 mt-1">Harness Imagen-4 technology to synthesize detailed snapshots of distant star clusters and undiscovered planets</p>
+        </div>
+
+        <!-- Suggest Prompt Chips -->
+        <div class="flex flex-col gap-2 mt-2">
+          <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-rajdhani">Inspirational Seeds</label>
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="setPromptSeed('Glowing neon cyan star nebula with dark matter tendrils, deep blue outer space background')" class="bg-slate-900 hover:bg-sky-950/40 text-sky-300 text-[10px] px-2 py-1 rounded border border-sky-950 transition-all">
+              #Nebula
+            </button>
+            <button onclick="setPromptSeed('Close up high-tech view of an icy planet with detailed sapphire planetary rings, space flight deck reflection')" class="bg-slate-900 hover:bg-sky-950/40 text-sky-300 text-[10px] px-2 py-1 rounded border border-sky-950 transition-all">
+              #SapphireRings
+            </button>
+            <button onclick="setPromptSeed('Distant glowing white star system in the black void of space, cosmic dust clouds, futuristic space station silhouette')" class="bg-slate-900 hover:bg-sky-950/40 text-sky-300 text-[10px] px-2 py-1 rounded border border-sky-950 transition-all">
+              #StarSystem
+            </button>
+          </div>
+        </div>
+
+        <!-- Prompt Text Area Input -->
+        <div class="mt-2 flex flex-col gap-1">
+          <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-rajdhani">Synthesis Prompt Directive</label>
+          <textarea id="visualizer-prompt" rows="4" placeholder="Describe the cosmic vista you wish to observe (e.g. A gorgeous blue supergiant star erupting with solar flares, surrounded by an asteroid dust field...)" class="w-full bg-slate-950 border border-sky-950 hover:border-sky-800/80 focus:border-sky-500/80 focus:outline-none rounded-xl p-3 text-xs md:text-sm text-white resize-none leading-relaxed"></textarea>
+        </div>
+
+        <!-- Generate Button -->
+        <button onclick="generateCosmicVista()" class="w-full mt-2 bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white font-bold font-orbitron py-3 rounded-xl transition-all duration-300 text-sm glow-blue tracking-wider">
+          <i class="fa-solid fa-wand-magic-sparkles mr-2 animate-pulse"></i> SYNTHESIZE SNAPSHOT
+        </button>
+      </div>
+
+      <!-- Generator Visual Output Panel -->
+      <div class="lg:col-span-2 glass-panel p-4 rounded-2xl flex flex-col justify-between min-h-[480px]">
+        
+        <!-- Header status -->
+        <div class="flex justify-between items-center border-b border-sky-950 pb-3">
+          <div>
+            <h4 class="font-orbitron font-bold text-sm text-white uppercase tracking-wider">Synthesis Visual Display Array</h4>
+            <p class="text-[10px] text-gray-400 mt-0.5">Imaging output resolution auto-optimized</p>
+          </div>
+          <span class="px-2.5 py-1 text-[10px] rounded bg-sky-500/10 text-sky-400 border border-sky-400/20 font-rajdhani uppercase tracking-widest font-bold">IMAGEN 4.0</span>
+        </div>
+
+        <!-- Render Image Area -->
+        <div class="relative flex-grow my-4 bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center border border-sky-950">
+          
+          <!-- Default Visual Placeholder when no image is generated yet -->
+          <div id="image-placeholder" class="text-center p-6 flex flex-col items-center max-w-sm gap-3 z-10">
+            <div class="w-16 h-16 rounded-full bg-sky-950/40 border border-sky-800/40 flex items-center justify-center text-sky-400 text-2xl relative mb-1">
+              <i class="fa-solid fa-satellite-dish"></i>
+              <div class="absolute -inset-1 rounded-full border border-sky-400/20 radar-pulse"></div>
+            </div>
+            <h5 class="font-orbitron text-sm text-white font-bold uppercase tracking-wider">Awaiting Vector Synthesis</h5>
+            <p class="text-xs text-gray-500">Provide an inspirational prompt seed on the left configuration panel and press Synthesize to translate stellar coordinates into dynamic visual images.</p>
+          </div>
+
+          <!-- Live loader overlay -->
+          <div id="image-loader" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center gap-4">
+            <div class="relative w-16 h-16 flex items-center justify-center">
+              <i class="fa-solid fa-sync text-sky-400 text-3xl animate-spin"></i>
+              <div class="absolute -inset-2 rounded-full border border-sky-400/10 radar-pulse"></div>
+            </div>
+            <div class="text-center max-w-xs">
+              <h5 class="font-orbitron text-sm text-sky-400 font-bold tracking-wider">ALIGNING TELESCOPE MIRRORS</h5>
+              <p class="text-[10px] text-gray-400 mt-1">Collecting hyper-photons and generating baseline matrix (Takes ~10-15 seconds)...</p>
+            </div>
+          </div>
+
+          <!-- Generated Image Element -->
+          <img id="generated-image" src="" alt="Cosmic Synthesis" class="hidden w-full h-full object-cover max-h-[400px]">
+
+        </div>
+
+        <!-- Extra details/Actions -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 border-t border-sky-950/60 pt-3">
+          <p class="text-xs text-gray-500 italic" id="image-generation-note">
+            No active snapshot saved.
+          </p>
+          <div class="flex items-center gap-2">
+            <button id="download-btn" disabled onclick="downloadImage()" class="px-4 py-1.5 rounded-lg bg-sky-950 hover:bg-sky-900 border border-sky-850 text-xs font-rajdhani text-gray-400 hover:text-white transition-all disabled:opacity-50 disabled:pointer-events-none">
+              <i class="fa-solid fa-download mr-1.5"></i> Download Snap
+            </button>
+            <button id="use-map-btn" disabled onclick="useAsMapIcon()" class="px-4 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-rajdhani text-white font-bold transition-all disabled:opacity-50 disabled:pointer-events-none">
+              <i class="fa-solid fa-circle-check mr-1.5"></i> Set Sector Icon
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Premium Galactic Footer -->
+  <footer class="mt-auto glass-panel border-t border-sky-950/40 py-6 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-rajdhani text-gray-500">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-shuttle-space text-sky-500"></i>
+        <span>&copy; 2026 Deseal Adventures Inc. All navigational charts and deep void coordinates reserved.</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" onclick="showQuickToast('TRANSMISSION', 'Secure communications channels active.')" class="hover:text-white transition-colors">Protocol Log</a>
+        <span>•</span>
+        <a href="#" onclick="showQuickToast('GALACTIC REGISTRY', 'Registered spacecraft hull: DS-998.')" class="hover:text-white transition-colors">Ship Registry</a>
+        <span>•</span>
+        <a href="#" onclick="showQuickToast('SYSTEM SECURITY', 'Quantum encryption layers validated.')" class="hover:text-white transition-colors">Security Node</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Interaction Logic -->
+  <script>
+    // Config values for environment
+    const apiKey = "";
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'deseal-adventures-app';
+
+    // UI Tab Routing
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(element => {
+        element.classList.add('hidden');
+      });
+      // Show specified tab
+      document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+      // Update Tab CSS
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'font-bold', 'text-white');
+        btn.classList.add('text-gray-400');
+      });
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'font-bold', 'text-white');
+        activeBtn.classList.remove('text-gray-400');
+      }
+
+      // Handle map trigger redraw if switching to starmap
+      if (tabName === 'starmap') {
+        setTimeout(initStarMap, 100);
+      }
+    }
+
+    // Interactive Toast Notification
+    let toastTimeout;
+    function showQuickToast(title, message, iconType = "info") {
+      const toast = document.getElementById('toast');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMessage = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastTitle.innerText = title.toUpperCase();
+      toastMessage.innerText = message;
+
+      if (iconType === "warning") {
+        toastIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-500"></i>';
+      } else if (iconType === "success") {
+        toastIcon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+      } else {
+        toastIcon.innerHTML = '<i class="fa-solid fa-circle-info text-sky-400"></i>';
+      }
+
+      toast.classList.remove('translate-y-12', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-12', 'opacity-0');
+      }, 4000);
+    }
+
+    // Dynamic telemetry updates (Simulate live metrics)
+    setInterval(() => {
+      // Small velocity fluctuations
+      const baseVelocity = 1480;
+      const variation = Math.floor(Math.random() * 20) - 10;
+      const velocityEl = document.getElementById('val-velocity');
+      if (velocityEl) velocityEl.innerText = `${(baseVelocity + variation).toLocaleString()} km/s`;
+
+      // Small engine power fluctuations
+      const enginePctEl = document.getElementById('engine-pct');
+      if (enginePctEl) {
+        const value = (98 + Math.random() * 1.5).toFixed(1);
+        enginePctEl.innerText = `${value}%`;
+      }
+    }, 4000);
+
+    // ==========================================
+    // BACKEND API INTEGRATIONS (GEMINI & IMAGEN)
+    // ==========================================
+
+    // Helper utility for Exponential Backoff on API Calls
+    async function fetchWithRetry(url, options, maxRetries = 5) {
+      let delay = 1000;
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) return response;
+          // If hit with rate limit (429) or server errors, retry
+          if (response.status === 429 || response.status >= 500) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2;
+            continue;
+          }
+          return response; // Return anyway for standard client errors (400, etc) to parse error body
+        } catch (error) {
+          if (i === maxRetries - 1) throw error;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+      throw new Error("Maximum retry attempts reached.");
+    }
+
+    // --- API 1: CAPTAIN'S LOGS SPEECH (TEXT-TO-SPEECH) ---
+    let currentAudioSource = null;
+    let audioCtx = null;
+
+    async function playCaptainsLog(type) {
+      stopAudio(); // Reset any currently playing track
+      
+      const audioConsole = document.getElementById('audio-console');
+      const audioTitle = document.getElementById('audio-title');
+      const audioTranscript = document.getElementById('audio-transcript');
+      
+      audioConsole.classList.remove('hidden');
+      audioTitle.innerText = `GENERATING VOICE TRANSMISSION...`;
+      audioTranscript.innerText = `Synthesizing digital vocal pathways using prebuilt Gemini speaker models...`;
+
+      // Formulate Captain log content depending on type chosen
+      let textToSpeak = "";
+      if (type === 'expedition') {
+        textToSpeak = "Captain's Log, Star Date 44 point 1. We have successfully slipped past the gravity well of planet Desealon-A Prime. Telemetry and solar sails are performing flawlessly. Our AI navigator calculates high concentration of silicon crystals in the asteroid cluster ahead.";
+        audioTitle.innerText = `TRANSMITTING: FLIGHT PATH`;
+      } else {
+        textToSpeak = "Alert: Dark Matter Sensor Scan. Capturing strange quantum disturbances around Sector Deseal-9. Radiation shielding is functioning. We suggest holding orbital coordinates and launching scanner probes immediately.";
+        audioTitle.innerText = `TRANSMITTING: DARK MATTER REPORT`;
+      }
+
+      try {
+        const payload = {
+          contents: [{ parts: [{ text: `Say in a futuristic voice: ${textToSpeak}` }] }],
+          generationConfig: {
+            responseModalities: ["AUDIO"],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: {
+                  voiceName: "Fenrir" // Rich voice suited for robotic captains logs
+                }
+              }
+            }
+          },
+          model: "gemini-2.5-flash-preview-tts"
+        };
+
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Unable to synthesize Captain voice transmission.");
+        }
+
+        const data = await response.json();
+        const base64Audio = data.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+        
+        if (!base64Audio) {
+          throw new Error("No voice wave file returned from transmission stream.");
+        }
+
+        // Convert base64 to binary buffer
+        const binaryStr = atob(base64Audio);
+        const pcmBuffer = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) {
+          pcmBuffer[i] = binaryStr.charCodeAt(i);
+        }
+
+        // Convert raw L16 PCM to browser-playable WAV audio Blob
+        const wavBlob = pcmToWav(pcmBuffer.buffer, 24000); // Default TTS rate is 24kHz
+        const audioUrl = URL.createObjectURL(wavBlob);
+        
+        // Play the generated sound
+        currentAudioSource = new Audio(audioUrl);
+        currentAudioSource.play();
+        
+        audioTranscript.innerHTML = `<strong>Transcript:</strong> "${textToSpeak}"`;
+        showQuickToast('TRANSMISSION OPEN', 'Audio log streaming successfully.', 'success');
+
+        currentAudioSource.onended = () => {
+          stopAudio();
+        };
+
+      } catch (error) {
+        console.error(error);
+        audioConsole.classList.add('hidden');
+        showQuickToast('TRANSMISSION ERROR', 'Failed to retrieve voice log. Verify network link.', 'warning');
+      }
+    }
+
+    function stopAudio() {
+      if (currentAudioSource) {
+        currentAudioSource.pause();
+        currentAudioSource = null;
+      }
+      document.getElementById('audio-console').classList.add('hidden');
+    }
+
+    // PCM to WAV translation helpers
+    function pcmToWav(pcmData, sampleRate = 24000) {
+      const buffer = new ArrayBuffer(44 + pcmData.byteLength);
+      const view = new DataView(buffer);
+      
+      writeString(view, 0, 'RIFF');
+      view.setUint32(4, 36 + pcmData.byteLength, true);
+      writeString(view, 8, 'WAVE');
+      writeString(view, 12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true); // Raw PCM formatting
+      view.setUint16(22, 1, true); // Mono channel
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true); // Byte rate
+      view.setUint16(32, 2, true); // Alignment block
+      view.setUint16(34, 16, true); // Bits per sample
+      writeString(view, 36, 'data');
+      view.setUint32(40, pcmData.byteLength, true);
+      
+      const pcmView = new Int16Array(pcmData);
+      for (let i = 0; i < pcmView.length; i++) {
+        view.setInt16(44 + i * 2, pcmView[i], true);
+      }
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
+    function writeString(view, offset, string) {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
+    }
+
+    // --- API 2: CHAT WITH ARTIFICIAL COGNITIVE NAVIGATOR ---
+    const chatLog = [];
+
+    async function sendMessage(event) {
+      if (event) event.preventDefault();
+      const inputEl = document.getElementById('ai-input');
+      const query = inputEl.value.trim();
+      if (!query) return;
+
+      // Add user speech to bubble
+      addChatBubble(query, 'user');
+      inputEl.value = "";
+
+      const loadingTicker = document.getElementById('ai-loading');
+      loadingTicker.classList.remove('hidden');
+
+      try {
+        const systemPrompt = `You are the Deseal Navigational Consciousness (NAV-CORE AI), an advanced artificial intelligence built directly into the explorer cruiser "Deseal Flagship". Keep your answers highly atmospheric, sci-fi colored (themed around deep space, nebulae, black holes, stars, cosmic physics), professional, and informative. Use LaTeX notation when discussing physical equations or numbers.`;
+        
+        const payload = {
+          contents: [{ parts: [{ text: query }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] }
+        };
+
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Navigational database disconnected.");
+        }
+
+        const data = await response.json();
+        const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No signal detected from local servers.";
+        
+        addChatBubble(responseText, 'ai');
+
+      } catch (error) {
+        console.error(error);
+        addChatBubble("ERROR: Quantum link interrupted. Telemetry feedback suggests checking solar flare interference.", 'ai', true);
+      } finally {
+        loadingTicker.classList.add('hidden');
+      }
+    }
+
+    function addChatBubble(text, sender, isError = false) {
+      const messagesContainer = document.getElementById('chat-messages');
+      const outerDiv = document.createElement('div');
+      outerDiv.className = sender === 'user' ? "flex gap-3 max-w-[85%] self-end flex-row-reverse" : "flex gap-3 max-w-[85%] self-start";
+
+      const iconDiv = document.createElement('div');
+      iconDiv.className = sender === 'user' 
+        ? "w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white shrink-0" 
+        : "w-8 h-8 rounded-full bg-sky-950 border border-sky-850 flex items-center justify-center text-sky-400 shrink-0";
+      iconDiv.innerHTML = sender === 'user' ? '<i class="fa-solid fa-user text-xs"></i>' : '<i class="fa-solid fa-robot text-xs"></i>';
+
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = sender === 'user'
+        ? "p-3.5 rounded-2xl bg-sky-600/20 border border-sky-500/20 text-xs md:text-sm text-white"
+        : `p-3.5 rounded-2xl ${isError ? 'bg-rose-950/20 border-rose-900/30 text-rose-300' : 'bg-sky-950/35 border-sky-900/30 text-gray-200'} text-xs md:text-sm`;
+
+      const headerText = sender === 'user' ? 'PILOT COMMAND' : 'NAV-CORE INTEL';
+      const headerColor = sender === 'user' ? 'text-sky-300' : 'text-sky-400';
+      
+      bubbleDiv.innerHTML = `<p class="font-bold ${headerColor} font-orbitron mb-1 text-[10px] tracking-wider">${headerText}</p>${text}`;
+
+      outerDiv.appendChild(iconDiv);
+      outerDiv.appendChild(bubbleDiv);
+      messagesContainer.appendChild(outerDiv);
+      
+      // Auto-scroll
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function loadAIQuery(text) {
+      document.getElementById('ai-input').value = text;
+      showQuickToast('COMMUNICATION LOADED', 'Ready to broadcast query to Navigator.');
+    }
+
+    function clearChat() {
+      const messagesContainer = document.getElementById('chat-messages');
+      messagesContainer.innerHTML = "";
+      addChatBubble("Logs completely purged. Core awaiting fresh navigational queries.", 'ai');
+    }
+
+    function askAIAboutPlanet() {
+      const planetName = document.getElementById('p-name').innerText;
+      switchTab('ai-navigator');
+      loadAIQuery(`Explain detailed telemetry parameters and possibilities of establishing probes on the planetary body: ${planetName}.`);
+    }
+
+    // --- API 3: STARRY VISTA SYNTHESIS (IMAGEN 4) ---
+    function setPromptSeed(seedText) {
+      document.getElementById('visualizer-prompt').value = seedText;
+      showQuickToast('COSMIC SEED INSERTED', 'Adjust prompt further or press synthesize.');
+    }
+
+    async function generateCosmicVista() {
+      const promptText = document.getElementById('visualizer-prompt').value.trim();
+      if (!promptText) {
+        showQuickToast('CONFIGURATION FAILED', 'Please write a prompt directive first.', 'warning');
+        return;
+      }
+
+      const placeholder = document.getElementById('image-placeholder');
+      const loader = document.getElementById('image-loader');
+      const imageEl = document.getElementById('generated-image');
+      const downloadBtn = document.getElementById('download-btn');
+      const useMapBtn = document.getElementById('use-map-btn');
+      const noteEl = document.getElementById('image-generation-note');
+
+      placeholder.classList.add('hidden');
+      loader.classList.remove('hidden');
+      imageEl.classList.add('hidden');
+      downloadBtn.disabled = true;
+      useMapBtn.disabled = true;
+
+      try {
+        const payload = {
+          instances: { prompt: promptText },
+          parameters: { sampleCount: 1 }
+        };
+
+        const response = await fetchWithRetry(
+          `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Unable to synthesize cosmic vision.");
+        }
+
+        const data = await response.json();
+        const base64Bytes = data.predictions?.[0]?.bytesBase64Encoded;
+
+        if (!base64Bytes) {
+          throw new Error("No visual byte sequence returned.");
+        }
+
+        const imageUrl = `data:image/png;base64,${base64Bytes}`;
+        imageEl.src = imageUrl;
+        
+        loader.classList.add('hidden');
+        imageEl.classList.remove('hidden');
+        downloadBtn.disabled = false;
+        useMapBtn.disabled = false;
+        noteEl.innerText = "Snapshot fully rendered in memory banks.";
+        showQuickToast('SYNTHESIS SUCCESSFUL', 'Stellar imagery completely synthesized!', 'success');
+
+      } catch (error) {
+        console.error(error);
+        loader.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        noteEl.innerText = "Failed visual transmission.";
+        showQuickToast('SYNTHESIS ERROR', 'Visual synthesis failed. Verify cosmic connection.', 'warning');
+      }
+    }
+
+    function downloadImage() {
+      const img = document.getElementById('generated-image');
+      if (!img.src) return;
+      
+      const link = document.createElement('a');
+      link.href = img.src;
+      link.download = `deseal-cosmic-vista-${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showQuickToast('FILE DOWNLOADED', 'Visual log stored on local device storage.');
+    }
+
+    function useAsMapIcon() {
+      const img = document.getElementById('generated-image');
+      if (!img.src) return;
+
+      // Set the visual symbol for the planet display card
+      const symbolContainer = document.getElementById('planet-symbol-container');
+      symbolContainer.innerHTML = `<img src="${img.src}" class="w-full h-full object-cover rounded-full border border-sky-400">`;
+      showQuickToast('ICON DEPLOYED', 'Visual capture set as active scan symbol!', 'success');
+    }
+
+    // ==========================================
+    // INTERACTIVE CANVAS 1: STARFIELD STARSTREAM
+    // ==========================================
+    const bgCanvas = document.getElementById('starfield');
+    const bgCtx = bgCanvas.getContext('2d');
+    let stars = [];
+    const maxStars = 150;
+
+    function resizeBgCanvas() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+      initBackgroundStars();
+    }
+
+    function initBackgroundStars() {
+      stars = [];
+      for (let i = 0; i < maxStars; i++) {
+        stars.push({
+          x: Math.random() * bgCanvas.width,
+          y: Math.random() * bgCanvas.height,
+          size: Math.random() * 1.5 + 0.5,
+          speed: Math.random() * 0.05 + 0.01,
+          opacity: Math.random() * 0.8 + 0.2,
+          color: Math.random() > 0.3 ? '#38bdf8' : '#ffffff' // Blue and white stars
+        });
+      }
+    }
+
+    function drawStarfield() {
+      bgCtx.fillStyle = '#030712';
+      bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+      // Draw faint blue nebula gradient circles in the background
+      const grad = bgCtx.createRadialGradient(bgCanvas.width/2, bgCanvas.height/2, 10, bgCanvas.width/2, bgCanvas.height/2, bgCanvas.width * 0.8);
+      grad.addColorStop(0, '#0f172a');
+      grad.addColorStop(0.5, '#030712');
+      grad.addColorStop(1, '#030712');
+      bgCtx.fillStyle = grad;
+      bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+      // Render stars
+      stars.forEach(star => {
+        bgCtx.save();
+        bgCtx.globalAlpha = star.opacity;
+        bgCtx.fillStyle = star.color;
+        bgCtx.beginPath();
+        bgCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        bgCtx.fill();
+        bgCtx.restore();
+
+        // Slow parallax drifts
+        star.y += star.speed;
+        if (star.y > bgCanvas.height) {
+          star.y = 0;
+          star.x = Math.random() * bgCanvas.width;
+        }
+      });
+
+      requestAnimationFrame(drawStarfield);
+    }
+
+    // ==========================================
+    // INTERACTIVE CANVAS 2: CLICKABLE SECTOR STAR MAP
+    // ==========================================
+    const mapCanvas = document.getElementById('starmap-canvas');
+    let mapCtx;
+    let planets = [];
+    let selectedPlanet = null;
+    let customProbes = [];
+
+    // Base galactic bodies catalog
+    const basePlanets = [
+      { id: 1, name: 'Desealon-A Prime', x: 120, y: 150, size: 22, color: '#38bdf8', ring: true, desc: 'Hydrogen atmosphere gas giant shimmering with ionized sapphire ring storms. Intense gravity shields prevent simple landings.', composition: 'Hydrogen, Helium, Neon', temp: '-148°C', habitability: 'Extreme Hostility' },
+      { id: 2, name: 'Voidrock-Beta', x: 280, y: 80, size: 10, color: '#94a3b8', ring: false, desc: 'A barren carbon asteroid planet rich in silicon ore deposits. Highly suitable for autonomous probe strip-mining.', composition: 'Silicon, Carbon, Nickel', temp: '-220°C', habitability: 'Hostile but Mineable' },
+      { id: 3, name: 'Elysia White', x: 440, y: 220, size: 16, color: '#f8fafc', ring: false, desc: 'A frozen ocean world blanketed in pure ice and deep silicate caverns. Scan signs suggest deep thermal activity underneath.', composition: 'Solid Ice, Water, Silicate', temp: '-85°C', habitability: 'Moderate Hazard' },
+      { id: 4, name: 'Deseal-9 Outpost', x: 300, y: 310, size: 8, color: '#60a5fa', ring: true, desc: 'Primary expedition headquarters with solar sail arrays. Anchored safely inside the sector inner moon orbit.', composition: 'Titanium Composite, Oxygen', temp: '22°C (Internal)', habitability: 'Perfect (Life Support Enclosed)' },
+      { id: 5, name: 'Nova Sector-X', x: 550, y: 130, size: 28, color: '#0284c7', ring: false, desc: 'A giant blue star cluster core emitting massive quantum photon streams. Avoid direct cruise ships traversal.', composition: 'Superheated Plasma', temp: '55,000°C', habitability: 'Instant Lethality' }
+    ];
+
+    function initStarMap() {
+      if (!mapCanvas) return;
+      mapCtx = mapCanvas.getContext('2d');
+      
+      // Auto set responsive scale
+      const rect = mapCanvas.parentNode.getBoundingClientRect();
+      mapCanvas.width = rect.width || 600;
+      mapCanvas.height = rect.height || 400;
+
+      // Re-populate system lists
+      planets = [...basePlanets, ...customProbes];
+
+      // Attach click and interactive scan listeners
+      mapCanvas.addEventListener('mousedown', handleMapClick);
+
+      // Render star map cycle
+      drawMap();
+    }
+
+    function drawMap() {
+      if (!mapCanvas || !mapCtx) return;
+      
+      // Clear Map canvas
+      mapCtx.fillStyle = 'rgba(3, 7, 18, 0.9)';
+      mapCtx.fillRect(0, 0, mapCanvas.width, mapCanvas.height);
+
+      // Draw faint grid coordinate lines
+      mapCtx.strokeStyle = 'rgba(56, 189, 248, 0.05)';
+      mapCtx.lineWidth = 1;
+      const gridSize = 40;
+      for (let x = 0; x < mapCanvas.width; x += gridSize) {
+        mapCtx.beginPath();
+        mapCtx.moveTo(x, 0);
+        mapCtx.lineTo(x, mapCanvas.height);
+        mapCtx.stroke();
+      }
+      for (let y = 0; y < mapCanvas.height; y += gridSize) {
+        mapCtx.beginPath();
+        mapCtx.moveTo(0, y);
+        mapCtx.lineTo(mapCanvas.width, y);
+        mapCtx.stroke();
+      }
+
+      // Draw central star gravitational links
+      planets.forEach(p => {
+        mapCtx.strokeStyle = 'rgba(56, 189, 248, 0.1)';
+        mapCtx.beginPath();
+        mapCtx.arc(mapCanvas.width/2, mapCanvas.height/2, Math.hypot(p.x - mapCanvas.width/2, p.y - mapCanvas.height/2), 0, Math.PI*2);
+        mapCtx.stroke();
+      });
+
+      // Draw each orbital planet
+      planets.forEach(p => {
+        // Star Aura glow
+        if (p === selectedPlanet) {
+          mapCtx.shadowColor = '#38bdf8';
+          mapCtx.shadowBlur = 15;
+          mapCtx.strokeStyle = '#38bdf8';
+          mapCtx.lineWidth = 2;
+          mapCtx.beginPath();
+          mapCtx.arc(p.x, p.y, p.size + 6, 0, Math.PI * 2);
+          mapCtx.stroke();
+        } else {
+          mapCtx.shadowBlur = 0;
+        }
+
+        // Draw Rings
+        if (p.ring) {
+          mapCtx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+          mapCtx.lineWidth = 2;
+          mapCtx.beginPath();
+          mapCtx.ellipse(p.x, p.y, p.size * 1.8, p.size * 0.4, Math.PI / 6, 0, Math.PI * 2);
+          mapCtx.stroke();
+        }
+
+        // Draw Planet Body
+        mapCtx.fillStyle = p.color;
+        mapCtx.beginPath();
+        mapCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        mapCtx.fill();
+
+        // Draw Label Text
+        mapCtx.shadowBlur = 0;
+        mapCtx.fillStyle = '#ffffff';
+        mapCtx.font = "bold 10px 'Orbitron'";
+        mapCtx.fillText(p.name, p.x - p.size, p.y - p.size - 4);
+      });
+    }
+
+    function handleMapClick(e) {
+      const rect = mapCanvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      let clickedAny = false;
+
+      // Find closest planet body
+      planets.forEach(p => {
+        const dist = Math.hypot(p.x - mouseX, p.y - mouseY);
+        if (dist <= p.size + 15) {
+          selectedPlanet = p;
+          clickedAny = true;
+          
+          // Audio scan beep effect using browser audio synthesizer (No files needed!)
+          playSynthBeep();
+
+          // Populate the sidebar metrics details
+          document.getElementById('p-name').innerText = p.name;
+          document.getElementById('p-desc').innerText = p.desc;
+          document.getElementById('p-coords').innerText = `X: ${p.x.toFixed(1)} | Y: ${p.y.toFixed(1)}`;
+          document.getElementById('p-comp').innerText = p.composition || 'Unknown minerals';
+          document.getElementById('p-temp').innerText = p.temp || 'N/A';
+          document.getElementById('p-hab').innerText = p.habitability || 'Unknown';
+          
+          // Style badge coloring
+          const habEl = document.getElementById('p-hab');
+          if (p.habitability.includes('Perfect')) {
+            habEl.className = "text-emerald-400 font-bold uppercase";
+          } else if (p.habitability.includes('Moderate')) {
+            habEl.className = "text-amber-400 font-bold uppercase";
+          } else {
+            habEl.className = "text-rose-500 font-bold uppercase";
+          }
+
+          showQuickToast('SENSOR LOCKED', `Now scanning ${p.name}. Metrics streaming.`, 'success');
+        }
+      });
+
+      if (!clickedAny) {
+        selectedPlanet = null;
+      }
+
+      drawMap();
+    }
+
+    function resetMap() {
+      selectedPlanet = null;
+      customProbes = [];
+      initStarMap();
+      showQuickToast('MAP REBOOTED', 'Chart scales returned to baseline coordinates.');
+    }
+
+    function createCustomProbe() {
+      const name = document.getElementById('probe-name').value.trim() || `Des-Probe-${Math.floor(Math.random() * 900 + 100)}`;
+      const x = parseFloat(document.getElementById('probe-x').value) || 300;
+      const y = parseFloat(document.getElementById('probe-y').value) || 200;
+
+      const newProbe = {
+        id: Date.now(),
+        name: name,
+        x: x,
+        y: y,
+        size: 7,
+        color: '#38bdf8',
+        ring: false,
+        desc: `Autonomous scientific telemetry beacon deployed on custom galactic coordinates. Transmitting raw radio signals.`,
+        composition: 'Titanium, Radioactive Batteries',
+        temp: '-180°C',
+        habitability: 'Probe-Enclosed Mechanics (Non-organic)'
+      };
+
+      customProbes.push(newProbe);
+      initStarMap();
+      showQuickToast('PROBE LAUNCHED', `Telemetry probe ${name} deployed at coord ${x}, ${y}!`, 'success');
+    }
+
+    // Play synthesized browser beep for retro-futuristic audio feedback
+    function playSynthBeep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime); // High pitched scan beep
+        gain.gain.setValueAtTime(0.05, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+      } catch (err) {
+        // Silent catch if audio context is blocked or un-supported
+      }
+    }
+
+    // On Load Initialization
+    window.onload = function() {
+      // 1. Setup responsive Background
+      window.addEventListener('resize', () => {
+        resizeBgCanvas();
+        initStarMap();
+      });
+      resizeBgCanvas();
+      drawStarfield();
+
+      // 2. Initialize default starmap panel data
+      initStarMap();
+
+      // 3. Welcome Toast greeting
+      setTimeout(() => {
+        showQuickToast('Welcome Aboard', 'Deseal Adventures cockpit initialized. Ready for space telemetry.');
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
